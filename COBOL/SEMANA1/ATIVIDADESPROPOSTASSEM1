@@ -1,0 +1,57 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ATIVIDADESPROPOSTASSEM1.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: ATENDER REQUISITOS DAS ATIVIDADES
+      *== DATA: 14/02/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE             SECTION.
+       77  WRK-DOLAR               PIC  9(05)V99      VALUE ZEROS.
+       77  WRK-VALOR               PIC  9(05)V99      VALUE ZEROS.
+       77  WRK-RESULTADO           PIC  9(05)V99      VALUE ZEROS.
+       77  WRK-RESULTADO-EDT       PIC  ZZ999,99      VALUE ZEROS.
+
+       PROCEDURE DIVISION.
+       0100-RECEBE
+           DISPLAY "INSIRA VALOR DO DOLAR".
+               ACCEPT MRK-DOLAR.
+           DISPLAY "INSIRA VALOR A SER CONVERTIDO EM REAL".
+               ACCEPT MRK-VALOR.
+               COMPUTE WRK-RESULTADO = WRK-DOLAR * WRK-VALOR
+               MOVE WRK-RESULTADO TO WRK-RESULTADO-EDT
+       0200-MOSTRA                 SECTION.
+           DISPLAY "O RESULTADO É DE R$ " WRK-RESULTADO-EDT
+       0300-FINALIZAR              SECTION.
+           STOP RUN.   
+
+      *=================================================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE             SECTION.
+       77  WRK-PESO              PIC  9(03)V99      VALUE ZEROS.
+       77  WRK-ALTURA            PIC  9(03)V99      VALUE ZEROS.
+       77  WRK-IMC               PIC  99,99         VALUE ZEROS.
+       
+       PROCEDURE DIVISION.
+       0100-RECEBE
+           DISPLAY "INSIRA PESO EM KG ".
+               ACCEPT MRK-PESO.
+           DISPLAY "INSIRA ALTURA EM MT".
+               ACCEPT MRK-ALTURA.
+               COMPUTE WRK-IMC = WRK-PESO / (WRK-ALTURA^2)
+       0200-MOSTRA                 SECTION.
+           DISPLAY "SEU IMC = " WRK-IMC
+       0300-FINALIZAR              SECTION.
+           STOP RUN.   
+      
+      *=================================================================
+      

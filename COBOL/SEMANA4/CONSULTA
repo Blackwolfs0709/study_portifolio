@@ -1,0 +1,41 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CONSULTA.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: 
+      *== DATA: 04/03/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE             SECTION.
+       01  WRK-DADOS.   
+           05  WRK-CHAVE   PIC X(003).
+
+       LINKAGE                     SECTION.
+       01  LNK-DADOS.
+           05  LNK-CHAVE   PIC X(03).
+           05  LNK-CORPO   PIC X(30).
+           05  LNK-STATUS  PIC 9(01).
+      
+       PROCEDURE DIVISION USING LNK-DADOS.
+
+           WHEN "001"
+               MOVE "ALEXANDRE" TO LNK-CORPO
+           WHEN "002"
+               MOVE "HENRIQUE" TO LNK-CORPO
+           WHEN "003"
+               MOVE 2 TO LNK-STATUS
+           WHEN OTHER    
+               MOVE 1 TO LNK-STATUS
+               
+           END-EVALUATE.
+
+           GOBACK.
+                   
+      *     STOP RUN.
+      * SEMPRE TROCAR O STOP RUN PARA GOBACK, OU O PROGRAMA VAI FINALI-
+      *ZAR APOS CHAMAR O MODULO

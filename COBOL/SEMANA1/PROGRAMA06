@@ -1,0 +1,34 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGRAMA06.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: MOVE (EXEMPLOS)
+      *== DATA: 14/02/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE             SECTION.
+       77  WRK-VALOR0          PIC  X(05)         VALUE ZEROS.
+       77  WRK-VALOR1          PIC  X(05)         VALUE ZEROS.
+       77  WRK-VALOR2          PIC  9(05)         VALUE ZEROS.
+       77  WRK-RESULTADO       PIC  S9(05)V99     VALUE ZEROS.
+      
+       PROCEDURE DIVISION.
+       0100-RECEBE
+           DISPLAY "DIGITE VALOR 0 "
+               ACCEPT WRK-VALOR0.
+               MOVE WRK-VALOR0 TO WRK-VALOR1
+           DISPLAY "DIGITE VALOR 2 "
+               ACCEPT WRK-VALOR2.
+           COMPUTE WRK-RESULTADO = WRK-VALOR1 - WRK-VALOR2.
+       0200-MOSTRA                 SECTION.
+           DISPLAY "RESULTADO "  WRK-RESULTADO.
+       0300-FINALIZAR              SECTION.
+           STOP RUN.
+      *CONSIGO MOVER UMA VARIAVEL TEXTO PARA NUMERICA E VICE VERSA
+      *SÓ SE ATENTAR AO TAMANHO QUE PRECISA SER O MESMO
+   

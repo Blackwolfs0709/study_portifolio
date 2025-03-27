@@ -1,0 +1,66 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. MENU.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: 
+      *== DATA: 04/03/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+
+       WORKING-STORAGE             SECTION.
+       01  WRK-OPCAO        PIC 9(01) VALUE ZEROS.
+       01  WRK-SEGURATELA   PIC 9(01) VALUE ZEROS.
+
+       LINKAGE                     SECTION.
+       01  LNK-DADOS.
+           05  LNK-CHAVE   PIC X(03).
+           05  LNK-CORPO   PIC X(30).
+
+       SCREEN                      SECTION.
+       01  TELA.
+           05  BLANK SCREEN.
+      
+       PROCEDURE                   DIVISION.
+
+           PERFORM UNTIL WRK-OPCAO EQUAL 9
+               DISPLAY TELA
+               DISPLAY "1 - CONSULTA " LINE 01 COLUMN 01.
+               DISPLAY "2 - EXCLUSÃO " LINE 02 COLUMN 01.
+               DISPLAY "9 - SAIR " LINE 03 COLUMN 01.
+               DISPLAY "OPCAO -> " LINE 04 COLUMN 01.
+               ACCEPT WRK-OPCAO    LINE 04 COLUMN 14
+
+      *------------------------ CONSULTA --------------------------
+               IF WRK-OPCAO EQUAL 1
+                       
+                   DISPLAY "CHAVE "    LINE 10 COLUMN 01
+                   ACCEPT WRK-CHAVE    LINE 10 COLUMN 10
+
+                   CALL "CONSULTA" USING WRK-DADOS
+
+                   EVALUATE WRK-STATUS
+                   WHEN 0
+                       DISPLAY "CHAVE RETORNO  " WRK-CHAVE LINE 20 
+                       COLUMN 01
+                       DISPLAY "CORPO RETORNO  " WRK-CORPO LINE 21 
+                       COLUMN 01
+
+                   WHEN 1
+                       DISPLAY "CLIENTE NÃO ENCONTRADO"LINE 21 COLUMN 01
+
+                   WHEN 2
+                       DISPLAY "CLIENTE INATIVO"       LINE 21 COLUMN 01
+
+                   END-EVALUATE.
+
+                   DISPLAY "PRESSIONE UMA TECLA "      LINE 22 COLUMN 01
+                   ACCEPT WRK-SEGURATELA               LINE 22 COLUMN 20
+                   
+               END-IF
+           END-PERFORM.
+       STOP RUN.

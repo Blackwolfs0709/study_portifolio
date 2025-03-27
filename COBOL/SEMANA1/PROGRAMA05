@@ -1,0 +1,37 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGRAMA05.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: FUNÇÃO Z(OCULTAR ZEROS)
+      *== DATA: 14/02/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE             SECTION.
+   
+       77  WRK-VALOR1          PIC  9(03)V99         VALUE ZEROS.
+       77  WRK-VALOR2          PIC  9(03)V99         VALUE ZEROS.
+       77  WRK-RESULTADO       PIC  S9(03)V99        VALUE ZEROS.
+       77  WRK-RESULTADO-ED    PIC  -ZZ9,99        VALUE ZEROS.
+      *VARIAVEL ACIMA UTILIZADA COMO VARIAVEL ESPELHO/MASCARA
+      *SERVE PARA RECEBER UM VALOR E IMPRIMIR, NÃO É RECOMENDADO FAZER
+      *CALCULOS DIRETAMENTE NELA
+      *SINAL - UTILIZADO PARA MOSTRAR O SINAL DO VALOR RECEBIDO DE OUTRA
+      *VARIAVEL
+       PROCEDURE DIVISION.
+       0100-RECEBE
+           DISPLAY "DIGITE VALOR 1 "
+               ACCEPT WRK-VALOR1.
+           DISPLAY "DIGITE VALOR 2 "
+               ACCEPT WRK-VALOR2.
+           COMPUTE WRK-RESULTADO = WRK-VALOR1 - WRK-VALOR2.
+               MOVE WRK-RESULTADO TO WRK-RESULTADO-ED.
+       0200-MOSTRA                 SECTION.
+           DISPLAY "RESULTADO "  WRK-RESULTADO-ED.
+       0300-FINALIZAR              SECTION.
+           STOP RUN.
+   
