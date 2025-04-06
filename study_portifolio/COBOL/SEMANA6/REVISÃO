@@ -1,0 +1,150 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. GRAVA.
+      *===========================================
+      *== AUTOR: YAGO             EMPRESA: XPTO
+      *== OBJETIVO: GRAVAÇÃO DE REGISTRO DO ARQUIVO CLIENTES.DAT
+      *== DATA: 03/04/2025
+      *== OBSERVAÇÕES:
+      *===========================================
+       ENVIROMENT                  DIVISION.
+       CONFIGURATION               SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       FILE-CONTROL.
+           SELECT CLIENTES ASSIGN
+           TO "..\CLIENTES.DAT"
+               FILE STATUS IS FS-CLIENTES.
+
+       DATA DIVISION.
+
+       FILE                        SECTION.
+       FD  CLIENTES.
+       01  REG-CLIENTES.
+           05  REG-ID              PIC 9(004).
+           05  REG-NOME            PIC X(020).
+           05  REG-TELEFONE        PIC X(011).
+
+       WORKING-STORAGE             SECTION.
+       SCREEN                      SECTION.
+       01  TELA.
+           05  LIMPA-TELA.
+               10  BLANK SCREEN.
+               10  LINE 01 COLUMN 01 PIC X(020) ERASE EOL
+                   BACKGROUND-COLOR 3.
+               10  LINE 01 COLUMN 50 PIC X(020)
+                   BACKGROUND-COLOR 3 FROM 'GESTOR DE FILMES'.
+               10  LINE 02 COLUMN 01 PIC X(020) ERASE EOL
+                   BACKGROUND-COLOR 4 FROM WRK-TITULO
+                   FOREGROUND-COLOR 9.
+
+       01  MENU.
+           05  LINE 07 COLUMN 15 VALUE '1 - INCLUIR'.
+           05  LINE 08 COLUMN 15 VALUE '2 - CONSULTAR'.
+           05  LINE 09 COLUMN 15 VALUE '3 - ALTERAR'.
+           05  LINE 10 COLUMN 15 VALUE '4 - EXCLUIR'.
+           05  LINE 11 COLUMN 15 VALUE '5 - RELATORIO'.
+           05  LINE 12 COLUMN 15 VALUE 'X - ENCERRAR'.
+           05  LINE 13 COLUMN 15 VALUE 'OPCAO... '.
+           05  LINE 13 COLUMN 24 VALUE WRK-OPCAO.
+
+       01  TELA-REGISTRO.
+           05  CHAVE FOREGROUND-COLOR 2.
+               10  LINE 10 COLUMN 10 VALUE 'CODIGO FILME..'.
+               10  COLUMN PLUS 2 PIC 9(005) USING CODFILME
+                   BLANK WHEN ZEROS.
+           05  SS-DADOS.
+               10  LINE 11 COLUMN 10 VALUE 'TITULO..'.
+               10  COLUMN PLUS 2 PIC X(030) USING TITULO.
+               10  LINE 12 COLUMN 10 VALUE 'GENERO..'.
+               10  COLUMN PLUS 2 PIC X(008) USING GENERO.
+               10  LINE 13 COLUMN 10 VALUE 'DURACAO..'.
+               10  COLUMN PLUS 2 PIC 9(003) USING DURACAO
+                   BLANK WHEN ZEROS.
+               10  LINE 14 COLUMN 10 VALUE 'DISTRIBUIDORA..'.
+               10  COLUMN PLUS 2 PIC X(015) USING DISTRIBUIDORA.
+               10  LINE 15 COLUMN 10 VALUE 'NOTA..'.
+               10  COLUMN PLUS 2 PIC 9(002) USING NOTA
+                   BLANK WHEN ZEROS.
+
+       01  MOSTRA-ERRO.
+           05  MSG-ERRO.
+               10  LINE 16 COLUMN 01 PIC X(020) ERASE EOL
+                   BACKGROUND-COLOR 3.
+               10  LINE 16 COLUMN 10 PIC X(030)
+                   BACKGROUND-COLOR 3.
+                   FROM WRK-MSG-ERRO.
+               10  COLUMN PLUS 2 PIC X(001)
+                   BACKGROUND-COLOR 3
+                   USING WRK-TECLA.
+
+       PROCEDURE                   DIVISION.
+       0100-PRINCIPAL            SECTION.
+
+           PERFORM 0100-INICIALIZAR.
+           PERFORM 0200-PROCESSAR UNTIL WRK-OPCAO EQUAL 'X'.
+           PERFORM 0300-FINALIZAR.
+           STOP RUN.
+
+       0100-INICIALIZAR            SECTION.
+           OPEN I-O FILMES
+               IF FILMES-STATUS EQUAL 35 THEN
+                   OPEN OUTPUT FILMES
+                   CLOSE FILMES
+                   OPEN I-O FILMES
+               END-IF.
+
+           MOVE SPACES TO WRK-OPCAO.
+           MOVE 'MENU' TO WRK-TITULO.
+           DISPLAY TELA.
+           ACCEPT MENU.
+
+       0200-PROCESSAR              SECTION.
+           MOVE SPACES TO FILMES-REG WRK-TECLA WRK-MSG-ERRO.
+           EVALUATE WRK-OPCAO
+               WHEN 1
+                   PERFORM 0400-INCLUIR
+               WHEN 2
+                   PERFORM 0500-CONSULTA
+               WHEN 3
+                   PERFORM 0600-ALTERAR
+               WHEN 4
+                   PERFORM 0700-EXCLUIR
+               WHEN 5
+                   PERFORM 0800-RELATORIO-TELA
+               WHEN OTHER
+                   IF WRK-OPCAO NOT EQUAL "X"
+                       DISPLAY "OPÇÃO INVALIDA!" AT 1324
+                   END-IF.
+           END-EVALUATE.
+           PERFORM 0100-INICIALIZAR.
+
+       0300-FINALIZAR              SECTION.
+           CLOSE FILMES.
+
+       0400-INCLUIR                SECTION.
+           MOVE 'INCLUIR' TO WRK-TITULO
+           DISPLAY TELA
+           ACCEPT TELA-REGISTRO
+
+           DISPLAY 'DESEJA GRAVAR ? (S/N)' LINE 20 COLUMN 15
+           ACCEPT WRK-TECLA LINE 20 COLUMN 45.
+               IF WRK-TECLA EQUAL 'S'
+                   WRITE FILMES-REG
+                       INVALID KEY
+                           MOVE'FILME JA EXISTE' TO WRK-MSG-ERRO
+                           ACCEPT MOSTRA-ERRO
+                   END-WRITE.
+               ELSE
+                   DISPLAY 'GRAVAÇÃO CANCELADA'
+                   PERFORM 0100-INICIALIZAR
+               END-IF.
+
+       0500-CONSULTA               SECTION.
+           MOVE 'CONSULTA' TO WRK-TITULO.
+           DISPLAY TELA.
+           DISPLAY TELA-REGISTRO.
+           ACCEPT CHAVE.
+           READ FILMES
+               INVALID KEY
+
+       
