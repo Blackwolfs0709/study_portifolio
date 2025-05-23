@@ -1,0 +1,8 @@
+Este projeto tem como finalidade criar um bot para whatsapp para ser utilizado 
+como assistente pessoal. Conforme desenvolvimento do projeto, mais funções 
+serão adicionadas.
+
+Funções:
+- Lista de compras
+    O intuito é adicionar ou remover itens de uma lista de compras gerada
+     automaticamente quando solicitada ou armazenada por mês para posterior consulta.
