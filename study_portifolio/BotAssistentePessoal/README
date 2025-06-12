@@ -1,8 +1,16 @@
-Este projeto tem como finalidade criar um bot para whatsapp para ser utilizado 
-como assistente pessoal. Conforme desenvolvimento do projeto, mais funções 
-serão adicionadas.
+# WhatsApp Personal Assistant Bot
 
-Funções:
-- Lista de compras
-    O intuito é adicionar ou remover itens de uma lista de compras gerada
-     automaticamente quando solicitada ou armazenada por mês para posterior consulta.
+Este projeto tem como objetivo o desenvolvimento de um **bot para WhatsApp** que funcione como **assistente pessoal**, automatizando tarefas do dia a dia. Novas funcionalidades serão adicionadas conforme o avanço do projeto.
+
+## Funcionalidades Atuais
+
+- **Lista de Compras**  
+  Permite adicionar ou remover itens de uma lista de compras. A lista pode ser:
+  - Gerada automaticamente sob demanda
+  - Armazenada mensalmente para futuras consultas
+
+## Próximos Passos
+
+- Integração com calendário pessoal  
+- Lembretes automatizados  
+- Respostas personalizadas com base no contexto
